@@ -20,6 +20,8 @@ DirectoryDefaultFilePlugin.prototype.apply = function (resolver) {
     resolver.fileSystem.stat(directory, function (err, stat) {
       if (err || !stat) return done();
       if (!stat.isDirectory()) return done();
+      if (/inherits/.test(req.path)) return done();
+      if (/utils/.test(req.path)) return done();
 
       resolver.doResolve('file', {
         path: req.path,
